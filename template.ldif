@@ -1,0 +1,228 @@
+dn: %(suffix)s
+objectClass: top
+objectClass: organization
+o: %(suffix)s 
+
+dn: ou=appliances,%(suffix)s
+ou: appliances
+objectClass: organizationalUnit
+objectClass: top
+
+dn: o=%(orgInum)s,%(suffix)s
+objectClass: top
+objectClass: gluuOrganization
+objectClass: oxEntry
+inum: %(orgInum)s
+o: %(orgInum)s
+uid: @%(orgShortName)s
+userPassword: %(orgPass)s
+gluuManagerGroup: inum=%(groupInum)s!%(groupQuad)s,ou=groups,o=%(orgInum)s,%(suffix)s
+gluuManagerGroup: inum=%(managerGroupInum)s,ou=groups,o=%(orgInum)s,%(suffix)s
+gluuThemeColor: b88a00
+gluuAddPersonCapability: enabled
+gluuCustomMessage: loginPage: Welcome to oxTrust.
+gluuCustomMessage: welcomePage: Welcome to oxTrust.
+displayName: %(orgName)s
+gluuOrgShortName: %(orgShortName)s
+iname: @%(orgShortName)s
+
+dn: ou=attributes,o=%(orgInum)s,%(suffix)s
+ou: attributes
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=people,o=%(orgInum)s,%(suffix)s
+ou: people
+objectClass: organizationalunit
+objectClass: top
+
+dn: ou=groups,o=%(orgInum)s,%(suffix)s
+ou: groups
+objectClass: organizationalunit
+objectClass: top
+
+dn: ou=clients,o=%(orgInum)s,%(suffix)s
+ou: clients
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=scopes,o=%(orgInum)s,%(suffix)s
+ou: scopes
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=session,o=%(orgInum)s,%(suffix)s
+ou: scopes
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=configuration,o=%(orgInum)s,%(suffix)s
+ou: configuration
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: oxProx
+
+dn: ou=op,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: op
+
+dn: ou=script,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: script
+
+dn: ou=federation,o=%(orgInum)s,%(suffix)s
+ou: federation
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=uma,o=%(orgInum)s,%(suffix)s
+ou: uma
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=rp,ou=federation,o=%(orgInum)s,%(suffix)s
+ou: rp
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=op,ou=federation,o=%(orgInum)s,%(suffix)s
+ou: op
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=metadata,ou=federation,o=%(orgInum)s,%(suffix)s
+ou: metadata
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=request,ou=federation,o=%(orgInum)s,%(suffix)s
+ou: request
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=trust,ou=federation,o=%(orgInum)s,%(suffix)s
+ou: trust
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=policies,ou=uma,o=%(orgInum)s,%(suffix)s
+ou: policies
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=resource_sets,ou=uma,o=%(orgInum)s,%(suffix)s
+ou: resource_sets
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=scopes,ou=uma,o=%(orgInum)s,%(suffix)s
+ou: scopes
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=icons,ou=uma,o=%(orgInum)s,%(suffix)s
+ou: icons
+objectClass: organizationalUnit
+objectClass: top
+
+dn: inum=%(rsUmaScopeIdGenId)s,ou=scopes,ou=uma,o=%(orgInum)s,%(suffix)s
+displayName: generate_id
+inum: %(rsUmaScopeIdGenId)s
+objectClass: oxAuthUmaScopeDescription
+objectClass: top
+oxId: generate_id
+oxPolicyRule: generate_id
+oxRevision: 1
+oxType: internal
+
+dn: inum=%(oxTrustClientId)s,ou=clients,o=%(orgInum)s,%(suffix)s
+displayName: oxTrust Demo Client
+inum: %(oxTrustClientId)s
+objectClass: oxCustomAttributes
+objectClass: oxAuthClient
+objectClass: top
+oxAuthAppType: web
+oxAuthClientSecret: %(oxTrustClientSecret)s
+oxAuthIdTokenSignedResponseAlg: RS256
+oxAuthLogoURI: http://www.gluu.org/wp-content/themes/gluursn/images/logo.png
+oxAuthPolicyURI: http://www.gluu.org/
+oxAuthRedirectURI: http://localhost:8080/oxTrust/authentication/authcode
+oxAuthRedirectURI: http://localhost:8080/oxTrust/scim/auth
+oxAuthRedirectURI: http://localhost:8085/oxTrust/scim/auth
+oxAuthRedirectURI: http://localhost:8085/oxTrust/authentication/authcode
+oxAuthRedirectURI: https://localhost:8443/oxTrust/scim/auth
+oxAuthRedirectURI: https://localhost:8443/oxTrust/authentication/authcode
+oxAuthResponseType: token
+oxAuthResponseType: code
+oxAuthResponseType: id_token
+oxAuthScope: inum=@!1111!0009!E4B4,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthScope: inum=@!1111!0009!F2D2,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthScope: inum=@!1111!0009!D2D2,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthScope: inum=@!1111!0009!6D96,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthScope: inum=@!1111!0009!A4C4,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthTokenEndpointAuthMethod: client_secret_basic
+
+dn: inum=%(personInum)s,ou=people,o=%(orgInum)s,%(suffix)s
+ou: groups
+objectClass: organizationalunit
+objectClass: oxEntry
+objectClass: top
+
+dn: inum=%(personInum)s!%(personQuad)s,ou=people,o=%(orgInum)s,%(suffix)s
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: gluuPerson
+objectClass: oxEntry
+objectClass: ox-%(orgInumNoDelimiters)s
+iname: %(orgShortName)s*person*%(uid)s
+uid: %(uid)s
+iname: %(orgShortName)s*%(uid)s
+o: inum=%(orgInum)s,%(suffix)s
+givenName: %(givenName)s
+sn: %(sn)s
+cn: %(givenName)s %(sn)s
+displayName: %(givenName)s %(sn)s
+mail: %(mail)s
+l: %(l)s
+userPassword: %(password)s
+gluuStatus: active
+memberOf: inum=%(managerGroupInum)s,ou=groups,o=%(orgInum)s,%(suffix)s
+oxTrustActive: true
+
+dn: inum=%(groupInum)s!%(groupQuad)s,ou=groups,o=%(orgInum)s,%(suffix)s
+objectClass: top
+objectClass: gluuGroup
+inum: %(groupInum)s!%(groupQuad)s
+o: o=%(orgInum)s,%(suffix)s
+owner: inum=%(personInum)s!%(personQuad)s,ou=people,o=%(orgInum)s,%(suffix)s
+member: inum=%(personInum)s!%(personQuad)s,ou=people,o=%(orgInum)s,%(suffix)s
+displayName: oxTrust Manager Group
+gluuGroupType: oxTrustManagerGroup
+gluuStatus: active
+
+dn: inum=%(applianceInum)s!%(applianceQuad)s,ou=appliances,%(suffix)s
+objectClass: top
+objectClass: gluuAppliance
+gluuManageIdentityPermission: enabled
+gluuWhitePagesEnabled: true
+inum: %(applianceInum)s!%(applianceQuad)s
+gluuOrgProfileMgt: enabled
+
+dn: ou=federations,inum=%(applianceInum)s!%(applianceQuad)s,ou=appliances,%(suffix)s
+ou: federations
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=trustRelationships,inum=%(applianceInum)s!%(applianceQuad)s,ou=appliances,%(suffix)s
+ou: trustRelationships
+objectClass: organizationalUnit
+objectClass: top
+
