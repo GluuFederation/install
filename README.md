@@ -39,9 +39,9 @@ OX Install
 <ul>
   <li>Download from official openDJ site.</li>
   <li>Extract it.</li>
-  <li>Now run this command:</li>
-<div class="highlight highlight-bash"><pre><span class="c">$ opendj/setup --cli --baseDN o=gluu --ldapPort 1389 --adminConnectorPort 4444 --rootUserDN cn=Directory\ Manager --rootUserPassword passpass --no-prompt --noPropertiesFile</pre></div>
 </ul>
+<p>Now run this command:</p>
+<div class="highlight highlight-bash"><pre><span class="c">$ opendj/setup --cli --baseDN o=gluu --ldapPort 1389 --adminConnectorPort 4444 --rootUserDN cn=Directory\ Manager --rootUserPassword passpass --no-prompt --noPropertiesFile</pre></div>
 <p>Now you need to stop the server. To do so, run this command:</p>
 <div class="highlight highlight-bash"><pre><span class="c">$ opendj/bin/stop-ds</pre></div>
 <p>(note: example password: passpass but you must set your own password)</p>
