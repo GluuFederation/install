@@ -129,105 +129,127 @@ config.host.keystore_password=ukXNiX9stMCTNcwvx4XCaw==
 </pre></div>
 <h3><a name="setup.properties" class="anchor" href="#setup.properties"><span class="octicon octicon-link"></span></a>setup.properties</h3>
 <p>Location: <a href="https://github.com/GluuFederation/install/blob/master/setup.properties">https://github.com/GluuFederation/install/blob/master/setup.properties</a></p>
-<p>##############################<br />
-###### Control flow <br />
-# Script runs sequentially steps:</p>
-<ol>
-  <li>Generates LDAP schema;</li>
-  <li>Generates LDAP data required for correct running of OX products;</li>
-  <li>configures Directory Server (with LDAP schema and LDAP data generated in step 1 and 2).</li>
-  <li>Builds OX products (e.g. oxAuth, oxTrust)</li>
-  <li>Deploy OX products to Application Container(e.g. oxAuth, oxTrust to Tomcat)</li>
-  <li>Starts Application Container (Tomcat)</li>
-</ol>
-<p># ATTENTION: It's possible to switch on/off each step in setup script.<br />
-# However you need to be aware that there is dependencies between steps.<br />
-##############################</p>
-<p># Generates LDAP schema for Directory server. Later it's used for Directory server configuration. <br />
-generateSchema=true</p>
-<p># Generates LDAP data as LDIF. Later is used to import into Directory server.<br />
-generateLdapDataLdif=true</p>
-<p># Configures Directory server with LDAP schema and LDAP data generated in previous step.<br />
-configureDS=true</p>
-<p># Configures Directory server with LDAP schema and LDAP data generated in previous step.<br />
-configureDS=true</p>
-<p># Deploy OX products.<br />
-deployOX=true</p>
-<p># Start application container (tomcat).<br />
-startContainer=true</p>
-<p>##############################<br />
-###### Environment and Directory Server configuration<br />
-##############################</p>
-<p># Platform, possible values: windows, unix.<br />
-platform=windows</p>
-<p># Directory server name, possible values: opendj, opends, openldap, apacheds.<br />
-# ATTENTION : currently ONLY openDJ and openDS are supported<br />
-dsType=opendj</p>
-<p># Directory server home directory.<br />
-dsHome=c:\\own\\java\\opendj-2.4.4\\OpenDJ<br />
-ldapHost=localhost<br />
-ldapPort=1389<br />
-ldapDN=cn=directory manager<br />
-ldapPW=pw</p>
-<p>##############################<br />
-###### Schema generation<br />
-##############################<br />
-schemaFN=101-ox.ldif<br />
-userSchemaFN=100-user.ldif<br />
-userSchemaTemplateFN=100-user-template.ldif</p>
-<p>##############################<br />
-###### LDAP Data generation<br />
-##############################<br />
-dataTemplateFile=template.ldif<br />
-dataGeneratedFile=generated-data.ldif<br />
-orgInum=@!1111<br />
-orgPass=changeit<br />
-orgInumNoDelimiters=1111<br />
-suffix=o=gluu<br />
-orgName=YOUR ORGANIZATION NAME HERE<br />
-orgShortName=yourname<br />
-l=NOWHERE<br />
-givenName=First<br />
-sn=Last<br />
-uid=you<br />
-mail=you@yoursmtp.any<br />
-password=changeit<br />
-personInum=@!1111!0000<br />
-applianceInum=@!1111!0002<br />
-groupInum=@!1111!0003<br />
-attributeInum=@!1111!0005<br />
-applianceQuad=0085<br />
-groupQuad=20A0<br />
-personQuad=C975</p>
-<p># manager group inum -> used to assign user to manager group, without it oxTrust will not represent complete UI for configuration<br />
-managerGroupInum=@!1111!0003!B2C6</p>
-<p># ATTENTION : Client is restricted to localhost ONLY<br />
-oxTrustClientId=@!1111!0008!1234!1234</p>
-<p># ATTENTION : Client is restricted to localhost ONLY<br />
-# Encoded 12345678-1234-1234-1234-123456789012<br />
-oxTrustClientSecret=HdUJNbcCCEuZVGC3SjE6imo5fzDeQTV5HdUJNbcCCEs8n8r/51LyJA==</p>
-<p>##############################<br />
-###### Build process<br />
-# To successfully build OX make sure your Maven is properly configured.<br />
-# If you don't have Maven installed, please install it and configure<br />
-# as described here: http://maven.apache.org/download.cgi<br />
-##############################</p>
-<p># Path to oxAuth directory with sources.<br />
-# If you don't have sources please download them from here: <a href="https://svn.gluu.info/repository/openxdi/oxAuth/">https://svn.gluu.info/repository/openxdi/oxAuth/</a><br />
-oxAuthHome=u:\\own\\project\\oxAuth</p>
-<p># Path to oxTrust directory with sources.<br />
-# If you don't have sources please download them from here: <a href="https://svn.gluu.info/repository/openxdi/oxTrust/">https://svn.gluu.info/repository/openxdi/oxTrust/</a><br />
-oxTrustHome=u:\\own\\project\\all\\oxTrust</p>
-<p>##############################<br />
-###### Deploy process<br />
-# To successfully deploy OX products make sure your Tomcat is properly configured.<br />
-# If you don't have Tomcat installed, please install and configure it as described here: <a href="http://tomcat.apache.org/download-60.cgi">http://tomcat.apache.org/download-60.cgi</a><br />
-##############################</p>
-<p># Tomcat home directory<br />
-tomcatHome=u:\\own\\java\\apache-tomcat-6.0.33_setup</p>
-<p># Java runtime options used when the "start", "stop", or "run" command is executed of Tomcat catalina.<br />
-tomcatJavaOpts=-Xms228M -Xmx1512M -XX:MaxPermSize=292M</p>
+<div class="highlight highlight-bash"><pre><span class="c">
+##############################
+###### Control flow
+# Script runs sequentially steps:
+# 1. generates LDAP schema;
+# 2. generates LDAP data required for correct running of OX products;
+# 3. configures Directory Server (with LDAP schema and LDAP data generated in step 1 and 2).
+# 4. Builds OX products (e.g. oxAuth, oxTrust)
+# 5. Deploy OX products to Application Container(e.g. oxAuth, oxTrust to Tomcat)
+# 6. Starts Application Container (Tomcat)
+#
+# ATTENTION: It's possible to switch on/off each step in setup script.
+# However you need to be aware that there is dependencies between steps.
+##############################
 
+# Generates LDAP schema for Directory server. Later it's used for Directory server configuration
+generateSchema=true
+
+# Generates LDAP data as LDIF. Later is used to import into Directory server.
+generateLdapDataLdif=true
+
+# Configures Directory server with LDAP schema and LDAP data generated in previous step.
+configureDS=true
+
+# Builds OX products, e.g. oxAuth, oxTrust
+buildOX=true
+
+# Deploy OX products
+deployOX=true
+
+# Start application container (tomcat)
+startContainer=true
+
+##############################
+###### Environment and Directory Server configuration
+##############################
+
+# Platform, possible values: windows, unix
+platform=windows
+
+# Directory server name, possible values: opendj, opends, openldap, apacheds
+# ATTENTION : currently ONLY opendj and opends is supported
+dsType=opendj
+
+# Directory server home directory
+dsHome=c:\\own\\java\\opendj-2.4.4\\OpenDJ
+ldapHost=localhost
+ldapPort=1389
+ldapDN=cn=directory manager
+ldapPW=pw
+
+##############################
+###### Schema generation
+##############################
+schemaFN=101-ox.ldif
+userSchemaFN=100-user.ldif
+userSchemaTemplateFN=100-user-template.ldif
+
+##############################
+###### LDAP Data generation
+##############################
+dataTemplateFile=template.ldif
+dataGeneratedFile=generated-data.ldif
+orgInum=@!1111
+orgPass=changeit
+orgInumNoDelimiters=1111
+suffix=o=gluu
+orgName=YOUR ORGANIZATION NAME HERE
+orgShortName=yourname
+l=NOWHERE
+givenName=First
+sn=Last
+uid=you
+mail=you@yoursmtp.any
+password=changeit
+personInum=@!1111!0000
+applianceInum=@!1111!0002
+groupInum=@!1111!0003
+attributeInum=@!1111!0005
+applianceQuad=0085
+groupQuad=20A0
+personQuad=C975
+
+# manager group inum -> used to assign user to manager group, without it oxTrust will not represents complete UI for configuration
+managerGroupInum=@!1111!0003!B2C6
+
+# ATTENTION : Client is restricted to localhost ONLY
+oxTrustClientId=@!1111!0008!1234!1234
+
+# ATTENTION : Client is restricted to localhost ONLY
+# Encoded 12345678-1234-1234-1234-123456789012
+oxTrustClientSecret=HdUJNbcCCEuZVGC3SjE6imo5fzDeQTV5HdUJNbcCCEs8n8r/51LyJA==
+
+##############################
+###### Build process
+# To successfully build OX make sure your Maven is properly configured.
+# If you don't have Maven installed, please install it and configure
+# as described here: http://maven.apache.org/download.cgi
+##############################
+
+# Path to oxAuth directory with sources.
+# If you don't have sources please download them from here: https://svn.gluu.info/repository/openxdi/oxAuth/
+oxAuthHome=u:\\own\\project\\oxAuth
+
+# Path to oxTrust directory with sources.
+# If you don't have sources please download them from here: https://svn.gluu.info/repository/openxdi/oxTrust/
+oxTrustHome=u:\\own\\project\\all\\oxTrust
+
+##############################
+###### Deploy process
+# To successfully deploy OX products make sure your Tomcat is properly configured.
+# If you don't have Tomcat installed, please install it and configure
+# as described here: http://tomcat.apache.org/download-60.cgi
+##############################
+
+# Tomcat home directory
+tomcatHome=u:\\own\\java\\apache-tomcat-6.0.33_setup
+
+# Java runtime options used when the "start", "stop", or "run" command is executed of Tomcat catalina.
+tomcatJavaOpts=-Xms228M -Xmx1512M -XX:MaxPermSize=292M
+</pre></div>
 
 
 
