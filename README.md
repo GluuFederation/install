@@ -1,6 +1,6 @@
 OX Install
 ======
-<p>This is a step by step instruction for installing oxserver (oxAuth and oxTrust).</p>
+<p>This is a step by step instruction for installing oxserver (<a href="https://github.com/GluuFederation/oxAuth">oxAuth</a> and <a href="https://github.com/GluuFederation/oxTrust">oxTrust</a>).</p>
 <h2><a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents</h2>
 <ul>
 <li><a href="#prerequisites">Prerequisites</a>
