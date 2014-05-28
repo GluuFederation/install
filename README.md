@@ -28,6 +28,7 @@ OX Install
 <h3><a name="quick-start" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
 <ul>
   <li>OpenJDK 1.6 (Install openJDK1.6 using “yum”) or java7</li>
+  <li>OpenJDK 1.6 devel package needed to compile the code into wars.</li>
   <li>OpenDJ 2.7 or 2.6</li>
   <li>Maven 3.x</li>
   <li>Python 2.7.*</li>
@@ -47,26 +48,26 @@ OX Install
 <p>(note: example password: passpass but you must set your own password)</p>
 <h3><a name="setup-maven" class="anchor" href="#setup-maven"><span class="octicon octicon-link"></span></a>Setup Maven 3.x</h3>
 <p>If its not already present ($ which mvn) , then check your linux distribution for a package or download it from <a href="http://maven.apache.org/download.cgi">http://maven.apache.org/download.cgi</a></p>
+<p>Make sure you export the ENV PATH to include /maven/installdir/bin</p>
 <h3><a name="setup-tomcat" class="anchor" href="#setup-tomcat"><span class="octicon octicon-link"></span></a>Setup Tomcat 7</h3>
 <ul>
   <li>Download Tomcat 7</li>
   <li>Extract it.</li>
 </ul>
 <p>Encrypted Password strings: (download the file <a href="http://ox.gluu.org/lib/exe/fetch.php?media=oxauth:gluu-encryptor.zip">gluu-encryptor.zip</a>)</p>
-<p>To get encrypted representation of your password, unzip the file and execute the command:</p>
+<p>To get encrypted representation of your LDAP password you provided in the opendj setup phase, unzip the file and execute the command:</p>
 <div class="highlight highlight-bash"><pre><span class="c">$ java -jar Gluu-Encryptor.jar passpass</pre></div>
-<p>Example: decrypted password: “passpass” → encrypted password: ukXNiX9stMCTNcwvx4XCaw== </p>
+<p>Example: decrypted password: “passpass” → encrypted password: GENERATED_PASSWD </p>
 <h2><a name="configure-oxauth" class="anchor" href="#configure-oxauth"><span class="octicon octicon-link"></span></a>Configure oxAuth</h2>
 <p>Clone <a href="https://github.com/GluuFederation/oxAuth.git">https://github.com/GluuFederation/oxAuth.git</a> using this command:</p>
 <div class="highlight highlight-bash"><pre><span class="c">$ git clone https://github.com/GluuFederation/oxAuth.git</pre></div>
-<p>Edit config-oxauth.properties using this command:</p>
-<div class="highlight highlight-bash"><pre><span class="c">$ vim oxAuth/Server/profiles/setup/config-oxauth.properties</pre></div>
+<p>Edit config-oxauth.properties:</p>
 <p>Sample configuration:<p>
 <div class="highlight highlight-bash"><pre><span class="c">config.oxauth.issuer=http://localhost:8080
 config.oxauth.contextPath=http://localhost:8080
 config.oxauth.appliance=@!1111!0002!0085
 config.ldap.bindDN=cn=Directory Manager
-config.ldap.bindPassword=ukXNiX9stMCTNcwvx4XCaw==
+config.ldap.bindPassword=GENERATED_PASSWD
 config.ldap.servers=localhost:1389
 config.ldap.maxConnections=3
 config.ldap.useSSL=false
@@ -79,16 +80,16 @@ config.ldap.createLdapConfigurationEntryIfNotExist=true
 <p>Edit config-oxtrust.properties using this command:</p>
 <div class="highlight highlight-bash"><pre><span class="c">$ vim oxTrust/profiles/setup/config-oxtrust.properties</pre></div>
 <p>Sample configuration:<p>
-<div class="highlight highlight-bash"><pre><span class="c">config.ldap.idp.bindPassword=ukXNiX9stMCTNcwvx4XCaw==
+<div class="highlight highlight-bash"><pre><span class="c">config.ldap.idp.bindPassword=GENERATED_PASSWD
 config.ldap.idp.servers=localhost\:1389
-config.ldap.central.bindPassword=ukXNiX9stMCTNcwvx4XCaw==
+config.ldap.central.bindPassword=GENERATED_PASSWD
 config.ldap.central.servers=localhost\:1389
-config.appliance.svn_base64_encoded_password=ukXNiX9stMCTNcwvx4XCaw==
+config.appliance.svn_base64_encoded_password=GENERATED_PASSWD
 config.host.idp_name=localhost:8080
-config.host.idp_mysql_base64_encoded_password=ukXNiX9stMCTNcwvx4XCaw==
-config.host.idp.ldap_base64_encoded_password=ukXNiX9stMCTNcwvx4XCaw==
-config.host.vds.ldap_base64_encoded_password=ukXNiX9stMCTNcwvx4XCaw==
-config.host.keystore_password=ukXNiX9stMCTNcwvx4XCaw==
+config.host.idp_mysql_base64_encoded_password=GENERATED_PASSWD
+config.host.idp.ldap_base64_encoded_password=GENERATED_PASSWD
+config.host.vds.ldap_base64_encoded_password=GENERATED_PASSWD
+config.host.keystore_password=GENERATED_PASSWD
 </pre></div>
 <h2><a name="configure-install-script" class="anchor" href="#configure-install-script"><span class="octicon octicon-link"></span></a>Configure Install Script</h2>
 <p>Clone <a href="https://github.com/GluuFederation/install.git">https://github.com/GluuFederation/install.git</a> using this command:</p>
@@ -99,16 +100,16 @@ config.host.keystore_password=ukXNiX9stMCTNcwvx4XCaw==
 <ul>
   <li>platform=unix</li>
   <li>dsType=opendj</li>
-  <li>dsHome=full path of opendj</li>
-  <li>oxAuthHome=full path of oxAuth</li>
-  <li>oxTrustHome=full path of oxTrust</li>
-  <li>tomcatHome=full path of tomcat</li>
+  <li>dsHome=full path of opendj base install dir [default is /opt/opendj]</li>
+  <li>oxAuthHome=full path of oxAuth git clone</li>
+  <li>oxTrustHome=full path of oxTrust git clone</li>
+  <li>tomcatHome=full path of tomcat base install dir [default is /opt/tomcat]</li>
 </ul>
 <p>Start openDj server:</p> 
 <div class="highlight highlight-bash"><pre><span class="c">$ opendj/bin/start-ds
 </pre></div>
 <p>Run setup:</p>
-<div class="highlight highlight-bash"><pre><span class="c">$ python install/setup.py
+<div class="highlight highlight-bash"><pre><span class="c">$ python install/setup.py 2>&1 | tee /tmp/gluu_install.log
 </pre></div>
 <p>Test ox in web browser by loading this URL:<br />
 <a href="http://localhost:8080/oxTrust">http://localhost:8080/oxTrust</a></p>
@@ -174,7 +175,7 @@ platform=windows
 dsType=opendj
 
 # Directory server home directory
-dsHome=c:\\own\\java\\opendj-2.4.4\\OpenDJ
+dsHome=/opt/opendj
 ldapHost=localhost
 ldapPort=1389
 ldapDN=cn=directory manager
@@ -231,11 +232,11 @@ oxTrustClientSecret=HdUJNbcCCEuZVGC3SjE6imo5fzDeQTV5HdUJNbcCCEs8n8r/51LyJA==
 
 # Path to oxAuth directory with sources.
 # If you don't have sources please download them from here: https://svn.gluu.info/repository/openxdi/oxAuth/
-oxAuthHome=u:\\own\\project\\oxAuth
+oxAuthHome=/git/checkout/oxAuth
 
 # Path to oxTrust directory with sources.
 # If you don't have sources please download them from here: https://svn.gluu.info/repository/openxdi/oxTrust/
-oxTrustHome=u:\\own\\project\\all\\oxTrust
+oxTrustHome=/git/checkout/oxTrust
 
 ##############################
 ###### Deploy process
@@ -245,7 +246,7 @@ oxTrustHome=u:\\own\\project\\all\\oxTrust
 ##############################
 
 # Tomcat home directory
-tomcatHome=u:\\own\\java\\apache-tomcat-6.0.33_setup
+tomcatHome=/opt/tomcat
 
 # Java runtime options used when the "start", "stop", or "run" command is executed of Tomcat catalina.
 tomcatJavaOpts=-Xms228M -Xmx1512M -XX:MaxPermSize=292M
