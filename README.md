@@ -1,6 +1,7 @@
 OX Install
 ======
 <p>This is a step by step instruction for installing the OX Server (<a href="https://github.com/GluuFederation/oxAuth">oxAuth</a> and <a href="https://github.com/GluuFederation/oxTrust">oxTrust</a>).</p>
+<p>To access Gluu support, please register and open a ticket on <a href="http://support.gluu.org">Gluu Support</a>
 <h2><a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents</h2>
 <ul>
 <li><a href="#prerequisites">Prerequisites</a>
