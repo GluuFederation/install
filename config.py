@@ -3,6 +3,8 @@ __author__ = 'yuriy'
 import sys
 from getpass import getpass
 
+IS_CONFIG_OK = "isConfigOk"
+
 def getConfigDir(configFile="setup.properties"):
 
     argv = sys.argv

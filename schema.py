@@ -274,6 +274,7 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'oxAuthGrantType':{type:'string', desc:'oxAuth Grant Type', display:''},
                             'oxAuthAuthenticationTime':{type:'string', desc:'oxAuth Authentication Time', display:''},
                             'oxAuthPermissionGranted':{type:'string', desc:'oxAuth Permission Granted', display:''},
+                            'oxAuthPermissionGrantedMap':{type:'string', desc:'oxAuth Permission Granted Map', display:''},
                             'oxAuthTokenType':{type:'string', desc:'oxAuth Token Type', display:''},
                             'oxAuthTokenCode':{type:'string', desc:'oxAuth Token Code', display:''},
                             'oxAuthExpiration':{type:'string', desc:'oxAuth Expiration', display:''},
@@ -281,6 +282,7 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'oxAuthGrantId':{type:'string', desc:'oxAuth grant id', display:''},
                             'oxAuthUserId':{type:'string', desc:'oxAuth user id', display:''},
                             'oxAuthAuthorizationCode':{type:'string', desc:'oxAuth authorization code', display:''},
+                            'oxAuthNonce':{type:'string', desc:'oxAuth nonce', display:''},
                             'oxAuthJwtRequest':{type:'string', desc:'oxAuth JWT Request', display:''},
                             'defaultScope':{type:'string', desc:'oxAuth default scope', display:''},
                             'oxAuthPersistentJWT':{type:'string', desc:'oxAuth Persistent JWT', display:''},
@@ -310,7 +312,6 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'oxAssociatedClient':{type:'string', desc:'ox associated client', display:''},
                             'oxUrl':{type:'string', desc:'ox url', display:''},
                             'oxIconUrl':{type:'string', desc:'ox icon url', display:''},
-                            'oxOneIdUid':{type:'string', desc:'OneID UID', display:''},
                             'oxTrustConfApplication':{type:'string', desc:'oxTrust Application Configuration', display:''},
                             'oxClusteredServers': {type:'string' , desc:'List of the clustering partners of this server', display:'CLustered Servers'},
                             'oxClusterType': {type:'string' , desc:'Type of the underlying clustering mechanism', display:'Cluster Type'},
@@ -321,6 +322,11 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'creationDate': {type:'string' , desc:'Creation Date', display:'Creation Date'},
                             'passwordResetAllowed': {type:'string' , desc:'Is password reset mechanics allowed', display:'Is password reset mechanics allowed'},
                             'oxProxConf':{type:'string', desc:'oxProx Configuration', display:''},
+                            'oxProxyToOpClientMapping':{type:'string', desc:'oxProx client mapping to op client', display:''},
+                            'oxProxyScope':{type:'string', desc:'oxProx scope', display:''},
+                            'oxProxyClaimMapping':{type:'string', desc:'oxProx claim mapping', display:''},
+                            'oxProxyAccessToken':{type:'string', desc:'oxProx access token', display:''},
+                            'oxProxyClientId':{type:'string', desc:'oxProx client id', display:''},
                             'oxPushApplication':{type:'dn', desc:'oxPush application DN', display:''},
                             'oxPushApplicationConf':{type:'string', desc:'oxPush application configuration', display:''},
                             'oxPushDeviceConf':{type:'string', desc:'oxPush device configuration', display:''},
@@ -332,6 +338,21 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'oxScriptType':{type:'string', desc:'Attribute that contains script type (e.g. python, java script)', display:''},
                             'oxTrustStoreConf':{type:'string', desc:'oxPush application configuration', display:''},
                             'oxTrustStoreCert':{type:'string', desc:'oxPush device configuration', display:''},
+                            'oxLinkExpirationDate': {type:'string' , desc:'Link Expiration Date', display:'oxLinkExpirationDate'},
+                            'oxLinkModerated': {type:'string' , desc:'Is Link Moderated?', display:'oxLinkModerated'},
+                            'oxLinkModerators': {type:'string' , desc:'Link Moderators', display:'oxLinkModerators'},
+                            'oxLinkCreator': {type:'string' , desc:'Link Creator', display:'oxLinkCreator'},
+                            'oxLinkPending': {type:'string' , desc:'Pending Registrations', display:'oxLinkPending'},
+							'oxLinkLinktrack': {type:'string' , desc:'Linktrack link', display:'oxLinkLinktrack'},
+							'oxLinktrackEnabled': {type:'string' , desc:'Is Linktrack API configured', display:'oxLinktrackEnabled'},
+							'oxLinktrackLogin': {type:'string' , desc:'Linktrack API login', display:'oxLinktrackUsername'},
+							'oxLinktrackPassword': {type:'string' , desc:'Linktrack API password', display:'oxLinktrackPassword'},
+                            'oxLastAccessTime': {type:'generalizedTime' , desc:'Last access time', display:'Last access time'},
+                            'oxLastLogonTime': {type:'generalizedTime' , desc:'Last logon time', display:'Last logon time'},
+                            'oxRegistrationConfiguration': {type:'string' , desc:'Registration Configuration', display:'Registration Configuration'},
+                            'oxCreationTimestamp': {type:'generalizedTime' , desc:'Registration time', display:'Registration time'},
+                            'oxInviteCode': {type:'string' , desc:'Invite Code', display:'Invite Code'},
+                            'oxSmtpConfiguration': {type:'string', desc:'SMTP configuration', display:'SMTP configuration'},
                        }
 unusedAttrs = customAttrDict
 
@@ -439,7 +460,9 @@ oxAuthClient = { 'inum': level1,
                 'associatedPerson': level1,
                 'oxAuthFederationMetadataURI': level1,
                 'oxAuthFederationId': level1,
-                'oxAuthTrustedClient': level1
+                'oxAuthTrustedClient': level1,
+                'oxLastAccessTime': level1,
+                'oxLastLogonTime': level1,
                }
 
 oxCustomAttributes = { 'oxTrustCustAttrB': level1 }
@@ -502,7 +525,8 @@ oxAuthSessionId = {
                 'lastModifiedTime': level1,
                 'oxAuthUserDN': level1,
                 'oxAuthAuthenticationTime': level1,
-                'oxAuthPermissionGranted': level1
+                'oxAuthPermissionGranted': level1,
+                'oxAuthPermissionGrantedMap': level1
 }
 
 oxAuthConfiguration = {
@@ -521,7 +545,6 @@ oxProxConfiguration = {
                'oxScriptDn': level1,
                'ou': level1
 }
-
 oxProxOp = {
                 'inum': level1,
                 'displayName': level1,
@@ -531,6 +554,20 @@ oxProxOp = {
                 'l': level1,
                 'oxX509PEM': level1,
                 'oxX509URL': level1
+}
+oxProxClient = {
+                'inum': level1,
+                'displayName': level1,
+                'oxProxyToOpClientMapping': level1,
+                'oxProxyClaimMapping': level1,
+                'oxProxyScope': level1
+}
+
+oxProxAccessToken = {
+                'oxProxyAccessToken': level1,
+                'oxProxyClientId': level1,
+                'oxAuthCreation': level1,
+                'oxAuthExpiration': level1
 }
 
 oxScript = {
@@ -556,6 +593,7 @@ oxAuthToken = {
                 'oxAuthGrantId': level1,
                 'oxAuthUserId': level1,
                 'oxAuthAuthorizationCode': level1,
+                'oxAuthNonce': level1,
                 'oxAuthTokenCode': level1,
                 'oxAuthTokenType': level1,
                 'oxAuthenticationMode': level1,
@@ -688,7 +726,10 @@ gluuPerson = {  'c': level1,
                 'oxTrustAddresses': level1,
                 'associatedClient': level1,
                 'oxAuthPersistentJWT': level1,
-                'oxOneIdUid': level1}
+                'oxCreationTimestamp': level1,
+                'oxInviteCode': level1,
+                'oxLastLogonTime': level1,
+}
 
 eduPerson = {   'eduPersonNickname': level4,
                 'eduPersonOrgDN': level4,
@@ -811,7 +852,13 @@ gluuOrganization= {  'c': None,
 					 'scimAuthMode': None,
 					 'scimGroup': None,
 					 'scimStatus': None,
-                     'gluuApplianceUpdateReuestList':None
+                     'gluuApplianceUpdateReuestList':None,
+					 'oxLinkLinktrack':None,
+					 'oxLinktrackEnabled':None,
+					 'oxLinktrackLogin':None,
+                     'oxRegistrationConfiguration':None,
+                     'oxCreationTimestamp':None,
+					 'oxLinktrackPassword':None
                    }
 
 gluuAppliance= {  'iname': None,
@@ -895,6 +942,7 @@ gluuAppliance= {  'iname': None,
                   'passwordResetAllowed':None,
                   'oxTrustStoreConf':None,
                   'oxTrustStoreCert':None,
+                  'oxSmtpConfiguration':None,
                 }
 
 gluuAttribute= { 'description': None,
@@ -917,7 +965,8 @@ gluuAttribute= { 'description': None,
                  'seeAlso': None,
                  'gluuSAML1URI': None,
                  'gluuSAML2URI': None,
-                 'urn': None}
+                 'urn': None,
+                }
 
 gluuSAMLconfig= { 'description': None,
                   'displayName': None,
@@ -972,7 +1021,15 @@ gluuPasswordResetRequest=    { 'oxGuid': None,
                   'personInum': None,
                   'creationDate': None
                 }
-
+oxLink=    {      'oxGuid': None,
+                  'oxLinkExpirationDate': None,
+                  'oxLinkModerated': None,
+                  'oxLinkModerators': None,
+                  'oxLinkCreator': None,
+                  'oxLinkPending': None,
+				  'description': None,
+				  'oxLinkLinktrack': None
+                }
 
 # These are needed by Radiant Logic
 vdapcontainer   =  {'ou': None}
@@ -990,6 +1047,7 @@ customObjectclasses = [('gluuPerson', gluuPerson),
                  ('gluuInumMap', gluuInumMap),
                  ('gluuInvoice', gluuInvoice),
                  ('gluuPasswordResetRequest', gluuPasswordResetRequest),
+                 ('oxLink', oxLink),
                  ('vdapcontainer', vdapcontainer),
                  ('vdDirectoryView', vdDirectoryView),
                  ('vdlabel', vdlabel),
@@ -1014,6 +1072,8 @@ customObjectclasses = [('gluuPerson', gluuPerson),
 				 ('oxLiteralNode', oxLiteralNode),
 				 ('oxProxConfiguration', oxProxConfiguration),
 				 ('oxProxOp', oxProxOp),
+				 ('oxProxClient', oxProxClient),
+				 ('oxProxAccessToken', oxProxAccessToken),
 				 ('oxScript', oxScript),
 				 ('oxPushApplication', oxPushApplication),
 				 ('oxPushDevice', oxPushDevice)

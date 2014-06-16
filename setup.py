@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
-import generateData, configureDS, schema, config, build, deploy, starter
+import generateData, configureDS, schema, config, build, deploy, starter, interactive, sys
 
 # Configuration dictionary
 d = config.getConfigDir()
 
 # MAIN PROGRAM
+d = interactive.collectConfigs(d)
+
+if not d[config.IS_CONFIG_OK]:
+    print 'Configuration is invalid, exit OX Platform setup!'
+    sys.exit()
 
 # generate ldap schema
 if d['generateSchema'] == 'true':

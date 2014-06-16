@@ -76,6 +76,21 @@ objectClass: organizationalUnit
 objectClass: top
 ou: script
 
+dn: ou=client,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: client
+
+dn: ou=scope,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: scope
+
+dn: ou=token,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: organizationalUnit
+objectClass: top
+ou: token
+
 dn: ou=federation,o=%(orgInum)s,%(suffix)s
 ou: federation
 objectClass: organizationalUnit
@@ -140,6 +155,14 @@ oxId: generate_id
 oxPolicyRule: generate_id
 oxRevision: 1
 oxType: internal
+
+dn: inum=%(oxProxClientId)s,ou=client,ou=oxProx,o=%(orgInum)s,%(suffix)s
+objectClass: oxProxClient
+objectClass: top
+inum: %(oxProxClientId)s
+displayName: oxProx Demo Client
+oxProxyToOpClientMapping: seed.gluu.org=%(oxTrustClientId)s
+oxProxyToOpClientMapping: example.com=12341234
 
 dn: inum=%(oxTrustClientId)s,ou=clients,o=%(orgInum)s,%(suffix)s
 displayName: oxTrust Demo Client
