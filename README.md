@@ -101,6 +101,7 @@ config.host.keystore_password=GENERATED_PASSWD
 <ul>
   <li>platform=unix</li>
   <li>dsType=opendj</li>
+  <li>ldapPW=GENERATED_PASSWD</li>
   <li>dsHome=full path of opendj base install dir [default is /opt/opendj]</li>
   <li>oxAuthHome=full path of oxAuth git clone</li>
   <li>oxTrustHome=full path of oxTrust git clone</li>
@@ -110,7 +111,7 @@ config.host.keystore_password=GENERATED_PASSWD
 <div class="highlight highlight-bash"><pre><span class="c">$ opendj/bin/start-ds
 </pre></div>
 <p>Run setup:</p>
-<div class="highlight highlight-bash"><pre><span class="c">$ python install/setup.py 2>&1 | tee /tmp/gluu_install.log
+<div class="highlight highlight-bash"><pre><span class="c">$ cd install && python setup.py 2>&1 | tee /tmp/gluu_install.log
 </pre></div>
 <p>Test ox in web browser by loading this URL:<br />
 <a href="http://localhost:8080/oxTrust">http://localhost:8080/oxTrust</a></p>
@@ -180,7 +181,7 @@ dsHome=/opt/opendj
 ldapHost=localhost
 ldapPort=1389
 ldapDN=cn=directory manager
-ldapPW=pw
+ldapPW=passpass
 
 ##############################
 ###### Schema generation
