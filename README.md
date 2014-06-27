@@ -101,7 +101,7 @@ config.host.keystore_password=GENERATED_PASSWD
 <ul>
   <li>platform=unix</li>
   <li>dsType=opendj</li>
-  <li>ldapPW=GENERATED_PASSWD</li>
+  <li>ldapPW=Password for cn=Directory Manager</li>
   <li>dsHome=full path of opendj base install dir [default is /opt/opendj]</li>
   <li>oxAuthHome=full path of oxAuth git clone</li>
   <li>oxTrustHome=full path of oxTrust git clone</li>
@@ -181,7 +181,7 @@ dsHome=/opt/opendj
 ldapHost=localhost
 ldapPort=1389
 ldapDN=cn=directory manager
-ldapPW=passpass
+ldapPW=pw
 
 ##############################
 ###### Schema generation
