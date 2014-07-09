@@ -41,6 +41,11 @@ ou: groups
 objectClass: organizationalunit
 objectClass: top
 
+dn: ou=links,o=%(orgInum)s,%(suffix)s
+ou: links
+objectClass: organizationalunit
+objectClass: top
+
 dn: ou=clients,o=%(orgInum)s,%(suffix)s
 ou: clients
 objectClass: organizationalUnit
@@ -204,6 +209,8 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 objectClass: gluuPerson
 objectClass: oxEntry
+objectClass: eduPerson
+objectClass: oxCustomAttributes
 objectClass: ox-%(orgInumNoDelimiters)s
 iname: %(orgShortName)s*person*%(uid)s
 uid: %(uid)s

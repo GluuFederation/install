@@ -353,6 +353,9 @@ customAttrDict = { 			'gluuCentreonEmail': {type:'string', desc:'Centreon Alert 
                             'oxCreationTimestamp': {type:'generalizedTime' , desc:'Registration time', display:'Registration time'},
                             'oxInviteCode': {type:'string' , desc:'Invite Code', display:'Invite Code'},
                             'oxSmtpConfiguration': {type:'string', desc:'SMTP configuration', display:'SMTP configuration'},
+                            'oxAttributeType': {type:'string', desc:'NameId or attribute', display:'Attribute Type'},
+                            'oxSourceAttribute': {type:'string', desc:'Source Attribute for this Attribute', display:'Source Attribute'},
+                            'oxNameIdType': {type:'string', desc:'NameId Type', display:'NameId Type'},
                        }
 unusedAttrs = customAttrDict
 
@@ -622,7 +625,7 @@ oxAuthUmaScopeDescription = {
                 'oxFaviconImage': level1,
                 'oxRevision': level1,
                 'oxPolicyRule': level1,
-                'oxAssociatedClient': level1,
+#                'oxAssociatedClient': level1,
                 'oxUrl': level1,
                 'oxIconUrl': level1,
                 'oxType': level1,
@@ -966,6 +969,9 @@ gluuAttribute= { 'description': None,
                  'gluuSAML1URI': None,
                  'gluuSAML2URI': None,
                  'urn': None,
+                 'oxAttributeType': None,
+                 'oxSourceAttribute': None,
+                 'oxNameIdType': None,
                 }
 
 gluuSAMLconfig= { 'description': None,
