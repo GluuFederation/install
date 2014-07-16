@@ -256,3 +256,64 @@ ou: trustRelationships
 objectClass: organizationalUnit
 objectClass: top
 
+dn: inum=%(PAToxAuthClientId)s,ou=clients,o=%(orgInum)s,%(suffix)s
+objectClass: oxAuthClient
+objectClass: top
+displayName: Resource Server Client
+inum: %(PAToxAuthClientId)s
+oxAuthAppType: web
+oxAuthClientSecret: %(PAToxAuthClientSecret)s
+oxAuthIdTokenSignedResponseAlg: HS256
+oxAuthScope: inum=@!1111!0009!E037.C6BE,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthTokenEndpointAuthMethod: client_secret_basic
+oxAuthTrustedClient: true
+
+dn: inum=%(AAToxAuthClientId)s,ou=clients,o=%(orgInum)s,%(suffix)s
+objectClass: oxAuthClient
+objectClass: top
+displayName: Requesting Party Client
+inum: %(AAToxAuthClientId)s
+oxAuthAppType: web
+oxAuthClientSecret: %(AAToxAuthClientSecret)s
+oxAuthIdTokenSignedResponseAlg: HS256
+oxAuthScope: inum=@!1111!0009!6D97,ou=scopes,o=%(orgInum)s,%(suffix)s
+oxAuthTokenEndpointAuthMethod: client_secret_basic
+oxAuthTrustedClient: true
+
+dn: inum=%(UMAscopeId)s,ou=scopes,ou=uma,o=%(orgInum)s,%(suffix)s
+objectClass: oxAuthUmaScopeDescription
+objectClass: top
+displayName: Access SCIM
+inum: %(UMAscopeId)s
+owner: inum=%(personInum)s!%(personQuad)s,ou=people,o=%(orgInum)s,%(suffix)s
+oxId: access_scim
+oxRevision: 1
+oxType: internal
+
+dn: inum=%(UMApolicyId)s,ou=policies,ou=uma,o=%(orgInum)s,%(suffix)s
+objectClass: oxAuthUmaPolicy
+objectClass: top
+displayName: SCIM policy
+inum: %(UMApolicyId)s
+oxAuthUmaScope: inum=%(UMAscopeId)s,ou=scopes,ou=uma,o=%(orgInum)s,%(suffix)s
+oxPolicyScript:: ZnJvbSBvcmcueGRpLm94YXV0aC5zZXJ2aWNlLnVtYS5hdXRob3JpemF0aW9
+ uIGltcG9ydCBJUG9saWN5RXh0ZXJuYWxBdXRob3JpemF0aW9uDQogDQpjbGFzcyBQeXRob25FeH
+ Rlcm5hbEF1dGhvcml6YXRpb24oSVBvbGljeUV4dGVybmFsQXV0aG9yaXphdGlvbik6DQogDQogI
+ CAgZGVmIGF1dGhvcml6ZShzZWxmLCBhdXRob3JpemF0aW9uQ29udGV4dCk6DQogICAgICAgIHBy
+ aW50ICJTQ0lNIHBvbGljeS4gQXR0ZW1wdGluZyB0byBhdXRob3JpemUgU0NJTSBjbGllbnQiDQo
+ gICAgICAgIGNsaWVudF9pZCA9IGF1dGhvcml6YXRpb25Db250ZXh0LmdldEdyYW50KCkuZ2V0Q2
+ xpZW50SWQoKQ0KIA0KICAgICAgICBwcmludCAiU0NJTSBwb2xpY3kuIFNDSU0gY2xpZW50OiIsI
+ GNsaWVudF9pZA0KIA0KICAgICAgICBwcmludCAiU0NJTSBwb2xpY3kuIENsaWVudCBpcyBhdXRo
+ b3JpemVkIg0KICAgICAgICByZXR1cm4gVHJ1ZQ==
+programmingLanguage: python
+
+dn: inum=%(UMAresourceId)s,ou=resource_sets,ou=uma,o=%(orgInum)s,%(suffix)s
+objectClass: oxAuthUmaResourceSet
+objectClass: top
+displayName: SCIM Resource Set
+inum: %(UMAresourceId)s
+owner: inum=%(personInum)s!%(personQuad)s,ou=people,o=%(orgInum)s,%(suffix)s
+oxAuthUmaScope: inum=%(UMAscopeId)s,ou=scopes,ou=uma,o=%(orgInum)s,%(suffix)s
+oxFaviconImage: http://example.org/scim_resource_set.jpg
+oxId: 1403179695657
+oxRevision: 1
