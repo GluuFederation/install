@@ -1,3 +1,5 @@
+DEPRECATED ! 
+
 OX Install
 ======
 <p>This is a step by step instruction for installing the OX Server (<a href="https://github.com/GluuFederation/oxAuth">oxAuth</a> and <a href="https://github.com/GluuFederation/oxTrust">oxTrust</a>).</p>
