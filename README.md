@@ -1,6 +1,6 @@
-These instuctions are DEPRECATED. 
+###These instuctions are DEPRECATED. 
 
-###To install the Gluu Server, please follow the instructions [here](../../../docs/blob/master/sources/admin-guide/installation/index.md)
+To install the Gluu Server, please follow the instructions [here](../../../docs/blob/master/sources/admin-guide/installation/index.md)
 
 OX Install
 ======
